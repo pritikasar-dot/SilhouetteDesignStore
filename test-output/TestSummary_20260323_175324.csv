@@ -1,0 +1,9 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Verify search with invalid term and display search result message,PASSED,6476,Mon Mar 23 17:53:11 IST 2026
+Product listing page (New): Fetch product links and append in the excelsheet,PASSED,6534,Mon Mar 23 17:53:18 IST 2026
+HomePage : Verify the homepage title,PASSED,9,Mon Mar 23 17:52:47 IST 2026
+HomePage : Verify navigation to homepage via logo,PASSED,897,Mon Mar 23 17:52:51 IST 2026
+Login : Verify SignIn element presence,PASSED,28,Mon Mar 23 17:52:57 IST 2026
+Verify search with valid term and display first 5 product name,PASSED,6687,Mon Mar 23 17:53:00 IST 2026
+HomePage : Verify the homepage logo,PASSED,55,Mon Mar 23 17:52:43 IST 2026
+Login : Verify Login popup with valid credentials,FAILED,0,Mon Mar 23 17:52:57 IST 2026

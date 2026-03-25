@@ -1,0 +1,13 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Product Detail page : Verify product title, SKU, and price,PASSED,107,Tue Mar 24 12:31:53 IST 2026
+Product listing page (New): Fetch product links and append in the excelsheet,PASSED,15940,Tue Mar 24 12:31:21 IST 2026
+Login : Verify Login popup with valid credentials,PASSED,3428,Tue Mar 24 12:30:35 IST 2026
+Verify search with valid term and display first 5 product name,PASSED,6006,Tue Mar 24 12:32:04 IST 2026
+Product Detail Page : Verify Add to Cart functionality,PASSED,1,Tue Mar 24 12:31:53 IST 2026
+Login : Verify Login popup with invalid credentials,PASSED,1067,Tue Mar 24 12:30:51 IST 2026
+HomePage : Verify navigation to homepage via logo,PASSED,1177,Tue Mar 24 12:31:20 IST 2026
+HomePage : Verify the homepage logo,PASSED,46,Tue Mar 24 12:31:01 IST 2026
+Login : Verify SignIn element presence,PASSED,34,Tue Mar 24 12:30:18 IST 2026
+HomePage : Verify the homepage title,PASSED,12,Tue Mar 24 12:31:09 IST 2026
+Verify search with invalid term and display search result message,PASSED,6557,Tue Mar 24 12:32:22 IST 2026
+Shopping Cart : Validate product and prices in Shopping Cart match Product Page,FAILED,10038,Tue Mar 24 12:32:51 IST 2026

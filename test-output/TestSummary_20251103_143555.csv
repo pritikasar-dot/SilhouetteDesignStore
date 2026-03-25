@@ -1,0 +1,17 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+HomePage : Verify the homepage title,PASSED,21,Mon Nov 03 14:30:41 IST 2025
+Verify search with valid term and display first 5 product name,PASSED,7005,Mon Nov 03 14:31:49 IST 2025
+Shopping Cart : Validate product and prices in Shopping Cart match Product Page,PASSED,28,Mon Nov 03 14:34:01 IST 2025
+Registration : Verify user registration with valid data,PASSED,2533,Mon Nov 03 14:32:24 IST 2025
+Verify full checkout flow,PASSED,107922,Mon Nov 03 14:34:02 IST 2025
+Product Detail page : Verify product title, SKU, and price,PASSED,84,Mon Nov 03 14:33:32 IST 2025
+Login : Verify SignIn element presence,PASSED,49,Mon Nov 03 14:31:10 IST 2025
+Product Detail Page : Verify Add to Cart functionality,PASSED,373,Mon Nov 03 14:33:32 IST 2025
+Product listing page (New): Fetch product links and append in the excelsheet,PASSED,18444,Mon Nov 03 14:32:52 IST 2025
+Login : Verify Login popup with invalid credentials,PASSED,941,Mon Nov 03 14:31:37 IST 2025
+HomePage : Verify navigation to homepage via logo,PASSED,1787,Mon Nov 03 14:30:55 IST 2025
+Registration : Verify required field validation,PASSED,263,Mon Nov 03 14:32:50 IST 2025
+HomePage : Verify the homepage logo,PASSED,193,Mon Nov 03 14:30:26 IST 2025
+Registration : Verify registration with already registered email,PASSED,1363,Mon Nov 03 14:32:37 IST 2025
+Login : Verify Login popup with valid credentials,PASSED,3174,Mon Nov 03 14:31:23 IST 2025
+Verify search with invalid term and display search result message,PASSED,7187,Mon Nov 03 14:32:06 IST 2025

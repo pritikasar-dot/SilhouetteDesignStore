@@ -1,0 +1,2 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Clear shopping cart if items exist,PASSED,32627,Tue Mar 24 14:31:29 IST 2026

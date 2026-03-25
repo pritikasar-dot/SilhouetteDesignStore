@@ -1,0 +1,4 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Login : Verify SignIn element presence,PASSED,25,Tue Mar 24 11:45:28 IST 2026
+Login : Verify Login popup with invalid credentials,PASSED,1443,Tue Mar 24 11:45:56 IST 2026
+Login : Verify Login popup with valid credentials,PASSED,3181,Tue Mar 24 11:45:42 IST 2026

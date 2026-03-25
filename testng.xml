@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="MyStore Automation Suite" verbose="1">
+
+    <listeners>
+        <listener class-name="listeners.ExtentTestListener"/>
+        <listener class-name="listeners.ReportEmailTrigger"/>
+    </listeners>
+
+    <test name="Sanity Tests">
+        <classes>
+            <class name="com.mystore.testcases.ClearShoppingCartTest"/>
+            <class name="com.mystore.testcases.FetchProductLinksTest"/>
+            <class name="com.mystore.testcases.IndexPageTest"/>
+            <class name="com.mystore.testcases.Login"/>
+            <class name="com.mystore.testcases.ProductPageTest"/>
+            <class name="com.mystore.testcases.SearchTest"/>
+            <class name="com.mystore.testcases.SubscriptionPlanPurchaseTest"/>
+            <class name="com.mystore.testcases.CreditBoostPurchaseTest"/>
+        </classes>
+    </test>
+
+</suite>

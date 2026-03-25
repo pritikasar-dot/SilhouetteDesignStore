@@ -1,0 +1,18 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+verifyLogo,PASSED,104,Thu Oct 09 09:27:29 IST 2025
+verifyRequiredFieldValidation,PASSED,15,Thu Oct 09 09:30:41 IST 2025
+loginWithValidCredentials,PASSED,4015,Thu Oct 09 09:28:21 IST 2025
+verifyTitle,PASSED,23,Thu Oct 09 09:27:43 IST 2025
+testValidSearchShowsResults,PASSED,9720,Thu Oct 09 09:29:16 IST 2025
+verifyValidRegistration,PASSED,6,Thu Oct 09 09:31:53 IST 2025
+loginWithInValidCredentials,PASSED,1288,Thu Oct 09 09:28:02 IST 2025
+verifyValidRegistration,PASSED,2587,Thu Oct 09 09:31:35 IST 2025
+verifyExistingEmailRegistration,PASSED,34,Thu Oct 09 09:29:41 IST 2025
+verifyRequiredFieldValidation,PASSED,3,Thu Oct 09 09:30:58 IST 2025
+testInvalidSearchShowsNoResultsMessage,PASSED,7694,Thu Oct 09 09:28:54 IST 2025
+testNavigationToHomeViaLogo,PASSED,2337,Thu Oct 09 09:27:13 IST 2025
+verifySignInButtonPresence,PASSED,39,Thu Oct 09 09:28:41 IST 2025
+verifyExistingEmailRegistration,PASSED,2,Thu Oct 09 09:30:22 IST 2025
+verifyValidRegistration,PASSED,4,Thu Oct 09 09:32:09 IST 2025
+verifyExistingEmailRegistration,FAILED,155,Thu Oct 09 09:30:05 IST 2025
+verifyRequiredFieldValidation,FAILED,5931,Thu Oct 09 09:31:14 IST 2025

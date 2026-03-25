@@ -1,0 +1,7 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Login : Verify SignIn element presence,PASSED,29,Mon Mar 23 17:22:03 IST 2026
+HomePage : Verify the homepage logo,PASSED,67,Mon Mar 23 17:21:49 IST 2026
+HomePage : Verify the homepage title,PASSED,29,Mon Mar 23 17:21:53 IST 2026
+HomePage : Verify navigation to homepage via logo,PASSED,986,Mon Mar 23 17:21:57 IST 2026
+Login : Verify Login popup with invalid credentials,FAILED,1290,Mon Mar 23 17:22:13 IST 2026
+Login : Verify Login popup with valid credentials,FAILED,0,Mon Mar 23 17:22:03 IST 2026

@@ -1,0 +1,3 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Purchase Subscription Plan - Basic,PASSED,36450,Tue Mar 24 16:47:55 IST 2026
+Purchase Bronze Credit Boost with clean cart,FAILED,56542,Tue Mar 24 16:49:00 IST 2026

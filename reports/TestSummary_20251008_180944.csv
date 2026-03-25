@@ -1,0 +1,15 @@
+TestCase,Status,ExecutionTime
+verifyValidRegistration,PASSED,1
+verifyExistingEmailRegistration,PASSED,27
+loginWithInValidCredentials,PASSED,904
+testValidSearchShowsResults,PASSED,7203
+verifyValidRegistration,PASSED,2314
+testInvalidSearchShowsNoResultsMessage,PASSED,6495
+verifyRequiredFieldValidation,PASSED,1
+verifyRequiredFieldValidation,PASSED,1
+loginWithValidCredentials,PASSED,2474
+verifyExistingEmailRegistration,PASSED,967
+verifyExistingEmailRegistration,PASSED,1
+verifyValidRegistration,PASSED,1
+verifySignInButtonPresence,PASSED,14
+verifyRequiredFieldValidation,FAILED,5313

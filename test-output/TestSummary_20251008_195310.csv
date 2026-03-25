@@ -1,0 +1,14 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+verifyValidRegistration,PASSED,3,Wed Oct 08 19:53:10 IST 2025
+verifyValidRegistration,PASSED,1,Wed Oct 08 19:53:10 IST 2025
+verifyExistingEmailRegistration,PASSED,21,Wed Oct 08 19:53:10 IST 2025
+verifyExistingEmailRegistration,PASSED,2,Wed Oct 08 19:53:10 IST 2025
+verifyExistingEmailRegistration,FAILED,17,Wed Oct 08 19:53:10 IST 2025
+testInvalidSearchShowsNoResultsMessage,FAILED,2,Wed Oct 08 19:53:10 IST 2025
+testNavigationToHomeViaLogo,FAILED,28,Wed Oct 08 19:53:10 IST 2025
+loginWithValidCredentials,FAILED,2,Wed Oct 08 19:53:10 IST 2025
+verifyLogo,FAILED,2,Wed Oct 08 19:53:10 IST 2025
+verifyTitle,FAILED,3,Wed Oct 08 19:53:10 IST 2025
+verifyValidRegistration,FAILED,4,Wed Oct 08 19:53:10 IST 2025
+testValidSearchShowsResults,FAILED,1,Wed Oct 08 19:53:10 IST 2025
+loginWithInValidCredentials,FAILED,3,Wed Oct 08 19:53:10 IST 2025

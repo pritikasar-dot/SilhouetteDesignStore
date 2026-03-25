@@ -1,0 +1,3 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Verify search with valid term and display first 5 product name,PASSED,6346,Tue Mar 24 13:11:18 IST 2026
+Verify search with invalid term and display search result message,PASSED,6992,Tue Mar 24 13:11:34 IST 2026

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [MyStore Sanity Suite]" guice-stage="DEVELOPMENT">
+  <listeners>
+    <listener class-name="listeners.ExtentTestListener"/>
+    <listener class-name="listeners.ReportEmailTrigger"/>
+  </listeners>
+  <test thread-count="5" name="Sanity Tests(failed)">
+    <groups>
+      <run>
+        <include name="sanity"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.mystore.testcases.RegistrationTest">
+        <methods>
+          <include name="tearDown"/>
+          <include name="verifyValidRegistration"/>
+          <include name="setup"/>
+          <include name="verifyExistingEmailRegistration"/>
+        </methods>
+      </class> <!-- com.mystore.testcases.RegistrationTest -->
+      <class name="com.mystore.testcases.SearchTest">
+        <methods>
+          <include name="testInvalidSearchShowsNoResultsMessage"/>
+          <include name="testValidSearchShowsResults"/>
+        </methods>
+      </class> <!-- com.mystore.testcases.SearchTest -->
+      <class name="com.mystore.testcases.Login">
+        <methods>
+          <include name="loginWithInValidCredentials"/>
+          <include name="loginWithValidCredentials" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.mystore.testcases.Login -->
+      <class name="com.mystore.testcases.IndexPageTest">
+        <methods>
+          <include name="verifyLogo"/>
+          <include name="testNavigationToHomeViaLogo"/>
+          <include name="verifyTitle"/>
+        </methods>
+      </class> <!-- com.mystore.testcases.IndexPageTest -->
+    </classes>
+  </test> <!-- Sanity Tests(failed) -->
+</suite> <!-- Failed suite [MyStore Sanity Suite] -->

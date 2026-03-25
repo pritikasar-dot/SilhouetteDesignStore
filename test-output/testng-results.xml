@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="16" passed="16" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-11-21T12:18:17 IST" name="MyStore Automation Suite" finished-at="2025-11-21T12:21:20 IST" duration-ms="182843">
+    <groups>
+      <group name="unit">
+        <method signature="Login.verifySignInButtonPresence()[pri:1, instance:com.mystore.testcases.Login@5be49b60]" name="verifySignInButtonPresence" class="com.mystore.testcases.Login"/>
+      </group> <!-- unit -->
+      <group name="smoke">
+        <method signature="IndexPageTest.verifyLogo()[pri:1, instance:com.mystore.testcases.IndexPageTest@4e31276e]" name="verifyLogo" class="com.mystore.testcases.IndexPageTest"/>
+        <method signature="IndexPageTest.verifyTitle()[pri:2, instance:com.mystore.testcases.IndexPageTest@4e31276e]" name="verifyTitle" class="com.mystore.testcases.IndexPageTest"/>
+        <method signature="IndexPageTest.testNavigationToHomeViaLogo()[pri:3, instance:com.mystore.testcases.IndexPageTest@4e31276e]" name="testNavigationToHomeViaLogo" class="com.mystore.testcases.IndexPageTest"/>
+      </group> <!-- smoke -->
+      <group name="sanity">
+        <method signature="IndexPageTest.verifyLogo()[pri:1, instance:com.mystore.testcases.IndexPageTest@4e31276e]" name="verifyLogo" class="com.mystore.testcases.IndexPageTest"/>
+        <method signature="SearchTest.testValidSearchShowsResults()[pri:1, instance:com.mystore.testcases.SearchTest@2931522b]" name="testValidSearchShowsResults" class="com.mystore.testcases.SearchTest"/>
+        <method signature="IndexPageTest.verifyTitle()[pri:2, instance:com.mystore.testcases.IndexPageTest@4e31276e]" name="verifyTitle" class="com.mystore.testcases.IndexPageTest"/>
+        <method signature="Login.loginWithValidCredentials(java.lang.String,java.lang.String)[pri:2, instance:com.mystore.testcases.Login@5be49b60]" name="loginWithValidCredentials" class="com.mystore.testcases.Login"/>
+        <method signature="SearchTest.testInvalidSearchShowsNoResultsMessage()[pri:2, instance:com.mystore.testcases.SearchTest@2931522b]" name="testInvalidSearchShowsNoResultsMessage" class="com.mystore.testcases.SearchTest"/>
+        <method signature="IndexPageTest.testNavigationToHomeViaLogo()[pri:3, instance:com.mystore.testcases.IndexPageTest@4e31276e]" name="testNavigationToHomeViaLogo" class="com.mystore.testcases.IndexPageTest"/>
+        <method signature="Login.loginWithInValidCredentials()[pri:3, instance:com.mystore.testcases.Login@5be49b60]" name="loginWithInValidCredentials" class="com.mystore.testcases.Login"/>
+      </group> <!-- sanity -->
+    </groups>
+    <test started-at="2025-11-21T12:18:17 IST" name="Sanity Tests" finished-at="2025-11-21T12:21:20 IST" duration-ms="182843">
+      <class name="com.mystore.testcases.ProductPageTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.ProductPageTest@cf65451]" started-at="2025-11-21T12:19:56 IST" name="setup" finished-at="2025-11-21T12:20:06 IST" duration-ms="9644" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyProductDetails()[pri:1, instance:com.mystore.testcases.ProductPageTest@cf65451]" started-at="2025-11-21T12:20:06 IST" name="verifyProductDetails" description="Product Detail page : Verify product title, SKU, and price" finished-at="2025-11-21T12:20:06 IST" duration-ms="94" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyProductDetails -->
+        <test-method signature="verifyAddToCart()[pri:2, instance:com.mystore.testcases.ProductPageTest@cf65451]" started-at="2025-11-21T12:20:06 IST" name="verifyAddToCart" description="Product Detail Page : Verify Add to Cart functionality" finished-at="2025-11-21T12:20:07 IST" duration-ms="382" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyAddToCart -->
+      </class> <!-- com.mystore.testcases.ProductPageTest -->
+      <class name="com.mystore.testcases.CheckoutPageTest">
+        <test-method signature="verifyFullCheckoutFlow()[pri:1, instance:com.mystore.testcases.CheckoutPageTest@37eeec90]" started-at="2025-11-21T12:20:21 IST" name="verifyFullCheckoutFlow" description="Verify full checkout flow" finished-at="2025-11-21T12:21:19 IST" duration-ms="58303" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyFullCheckoutFlow -->
+      </class> <!-- com.mystore.testcases.CheckoutPageTest -->
+      <class name="com.mystore.testcases.RegistrationTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:17 IST" name="setup" finished-at="2025-11-21T12:19:22 IST" duration-ms="4864" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyValidRegistration()[pri:1, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:22 IST" name="verifyValidRegistration" description="Registration : Verify user registration with valid data" finished-at="2025-11-21T12:19:29 IST" duration-ms="7328" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyValidRegistration -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:29 IST" name="tearDown" finished-at="2025-11-21T12:19:29 IST" duration-ms="204" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:29 IST" name="setup" finished-at="2025-11-21T12:19:34 IST" duration-ms="4454" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyExistingEmailRegistration()[pri:2, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:34 IST" name="verifyExistingEmailRegistration" description="Registration : Verify registration with already registered email" finished-at="2025-11-21T12:19:40 IST" duration-ms="6530" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyExistingEmailRegistration -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:40 IST" name="tearDown" finished-at="2025-11-21T12:19:40 IST" duration-ms="184" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:40 IST" name="setup" finished-at="2025-11-21T12:19:45 IST" duration-ms="4521" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyRequiredFieldValidation()[pri:3, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:45 IST" name="verifyRequiredFieldValidation" description="Registration : Verify required field validation" finished-at="2025-11-21T12:19:50 IST" duration-ms="5249" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyRequiredFieldValidation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.RegistrationTest@114a85c2]" started-at="2025-11-21T12:19:50 IST" name="tearDown" finished-at="2025-11-21T12:19:50 IST" duration-ms="182" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.mystore.testcases.RegistrationTest -->
+      <class name="com.mystore.testcases.SearchTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:18:54 IST" name="setUp" finished-at="2025-11-21T12:18:58 IST" duration-ms="3915" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testValidSearchShowsResults()[pri:1, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:18:58 IST" name="testValidSearchShowsResults" description="Verify search with valid term and display first 5 product name" finished-at="2025-11-21T12:19:04 IST" duration-ms="6480" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValidSearchShowsResults -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:19:04 IST" name="tearDown" finished-at="2025-11-21T12:19:05 IST" duration-ms="215" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="tearDownTest()[pri:0, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:19:05 IST" name="tearDownTest" finished-at="2025-11-21T12:19:05 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownTest -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:19:05 IST" name="setUp" finished-at="2025-11-21T12:19:09 IST" duration-ms="3987" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testInvalidSearchShowsNoResultsMessage()[pri:2, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:19:09 IST" name="testInvalidSearchShowsNoResultsMessage" description="Verify search with invalid term and display search result message" finished-at="2025-11-21T12:19:15 IST" duration-ms="6507" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testInvalidSearchShowsNoResultsMessage -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:19:15 IST" name="tearDown" finished-at="2025-11-21T12:19:17 IST" duration-ms="1746" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="tearDownTest()[pri:0, instance:com.mystore.testcases.SearchTest@2931522b]" started-at="2025-11-21T12:19:17 IST" name="tearDownTest" finished-at="2025-11-21T12:19:17 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownTest -->
+      </class> <!-- com.mystore.testcases.SearchTest -->
+      <class name="com.mystore.testcases.IndexPageTest">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:17 IST" name="beforeSuite" finished-at="2025-11-21T12:18:17 IST" duration-ms="33" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method is-config="true" signature="loadConfig()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:17 IST" name="loadConfig" finished-at="2025-11-21T12:18:17 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loadConfig -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:17 IST" name="setup" finished-at="2025-11-21T12:18:21 IST" duration-ms="4706" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyLogo()[pri:1, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:21 IST" name="verifyLogo" description="HomePage : Verify the homepage logo" finished-at="2025-11-21T12:18:22 IST" duration-ms="115" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyLogo -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:22 IST" name="tearDown" finished-at="2025-11-21T12:18:22 IST" duration-ms="191" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:22 IST" name="setup" finished-at="2025-11-21T12:18:26 IST" duration-ms="3886" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyTitle()[pri:2, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:26 IST" name="verifyTitle" description="HomePage : Verify the homepage title" finished-at="2025-11-21T12:18:26 IST" duration-ms="12" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyTitle -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:26 IST" name="tearDown" finished-at="2025-11-21T12:18:26 IST" duration-ms="134" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:26 IST" name="setup" finished-at="2025-11-21T12:18:30 IST" duration-ms="4037" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testNavigationToHomeViaLogo()[pri:3, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:30 IST" name="testNavigationToHomeViaLogo" description="HomePage : Verify navigation to homepage via logo" finished-at="2025-11-21T12:18:31 IST" duration-ms="1080" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNavigationToHomeViaLogo -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.IndexPageTest@4e31276e]" started-at="2025-11-21T12:18:31 IST" name="tearDown" finished-at="2025-11-21T12:18:31 IST" duration-ms="218" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.mystore.testcases.IndexPageTest -->
+      <class name="com.mystore.testcases.ShoppingCartTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.ShoppingCartTest@724f138e]" started-at="2025-11-21T12:20:07 IST" name="setup" finished-at="2025-11-21T12:20:21 IST" duration-ms="14478" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyShoppingCartDetails()[pri:0, instance:com.mystore.testcases.ShoppingCartTest@724f138e]" started-at="2025-11-21T12:20:21 IST" name="verifyShoppingCartDetails" description="Shopping Cart : Validate product and prices in Shopping Cart match Product Page" finished-at="2025-11-21T12:20:21 IST" duration-ms="22" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyShoppingCartDetails -->
+      </class> <!-- com.mystore.testcases.ShoppingCartTest -->
+      <class name="com.mystore.testcases.FetchProductLinksTest">
+        <test-method signature="fetchAndWriteProductLinks()[pri:0, instance:com.mystore.testcases.FetchProductLinksTest@f415a95]" started-at="2025-11-21T12:19:50 IST" name="fetchAndWriteProductLinks" description="Product listing page (New): Fetch product links and append in the excelsheet" finished-at="2025-11-21T12:19:56 IST" duration-ms="6044" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- fetchAndWriteProductLinks -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.FetchProductLinksTest@f415a95]" started-at="2025-11-21T12:21:19 IST" name="tearDown" finished-at="2025-11-21T12:21:20 IST" duration-ms="260" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.mystore.testcases.FetchProductLinksTest -->
+      <class name="com.mystore.testcases.Login">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:31 IST" name="setup" finished-at="2025-11-21T12:18:36 IST" duration-ms="5150" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifySignInButtonPresence()[pri:1, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:36 IST" name="verifySignInButtonPresence" description="Login : Verify SignIn element presence" finished-at="2025-11-21T12:18:36 IST" duration-ms="41" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySignInButtonPresence -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:36 IST" name="tearDown" finished-at="2025-11-21T12:18:37 IST" duration-ms="157" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:37 IST" name="setup" finished-at="2025-11-21T12:18:42 IST" duration-ms="5278" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="loginWithValidCredentials(java.lang.String,java.lang.String)[pri:2, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:42 IST" name="loginWithValidCredentials" description="Login : Verify Login popup with valid credentials" data-provider="Credentials" finished-at="2025-11-21T12:18:47 IST" duration-ms="4414" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[priti.kasar@magnetoitsolutions.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Priti@123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginWithValidCredentials -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:47 IST" name="tearDown" finished-at="2025-11-21T12:18:47 IST" duration-ms="171" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:47 IST" name="setup" finished-at="2025-11-21T12:18:52 IST" duration-ms="5044" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="loginWithInValidCredentials()[pri:3, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:52 IST" name="loginWithInValidCredentials" description="Login : Verify Login popup with invalid credentials" finished-at="2025-11-21T12:18:54 IST" duration-ms="1640" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginWithInValidCredentials -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mystore.testcases.Login@5be49b60]" started-at="2025-11-21T12:18:54 IST" name="tearDown" finished-at="2025-11-21T12:18:54 IST" duration-ms="282" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.mystore.testcases.Login -->
+    </test> <!-- Sanity Tests -->
+  </suite> <!-- MyStore Automation Suite -->
+</testng-results>

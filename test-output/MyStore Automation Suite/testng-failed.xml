@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [MyStore Automation Suite]" guice-stage="DEVELOPMENT">
+  <listeners>
+    <listener class-name="listeners.ExtentTestListener"/>
+    <listener class-name="listeners.ReportEmailTrigger"/>
+  </listeners>
+  <test thread-count="5" name="Sanity Tests(failed)">
+    <classes>
+      <class name="com.mystore.testcases.CheckoutPageTest">
+        <methods>
+          <include name="tearDown"/>
+          <include name="loadConfig"/>
+          <include name="beforeSuite"/>
+          <include name="verifyFullCheckoutFlow"/>
+        </methods>
+      </class> <!-- com.mystore.testcases.CheckoutPageTest -->
+    </classes>
+  </test> <!-- Sanity Tests(failed) -->
+</suite> <!-- Failed suite [MyStore Automation Suite] -->

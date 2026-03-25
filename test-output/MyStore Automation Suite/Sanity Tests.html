@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>TestNG:  Sanity Tests</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Sanity Tests</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>16/0/0</td>
+</tr><tr>
+<td>Started on:</td><td>Fri Nov 21 12:18:17 IST 2025</td>
+</tr>
+<tr><td>Total time:</td><td>182 seconds (182843 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.mystore.testcases.Login.loginWithInValidCredentials()'><b>loginWithInValidCredentials</b><br>Test class: com.mystore.testcases.Login<br>Test method: Login : Verify Login popup with invalid credentials</td>
+<td></td>
+<td>1</td>
+<td>com.mystore.testcases.Login@5be49b60</td></tr>
+<tr>
+<td title='com.mystore.testcases.RegistrationTest.verifyValidRegistration()'><b>verifyValidRegistration</b><br>Test class: com.mystore.testcases.RegistrationTest<br>Test method: Registration : Verify user registration with valid data</td>
+<td></td>
+<td>7</td>
+<td>com.mystore.testcases.RegistrationTest@114a85c2</td></tr>
+<tr>
+<td title='com.mystore.testcases.ProductPageTest.verifyAddToCart()'><b>verifyAddToCart</b><br>Test class: com.mystore.testcases.ProductPageTest<br>Test method: Product Detail Page : Verify Add to Cart functionality</td>
+<td></td>
+<td>0</td>
+<td>com.mystore.testcases.ProductPageTest@cf65451</td></tr>
+<tr>
+<td title='com.mystore.testcases.Login.verifySignInButtonPresence()'><b>verifySignInButtonPresence</b><br>Test class: com.mystore.testcases.Login<br>Test method: Login : Verify SignIn element presence</td>
+<td></td>
+<td>0</td>
+<td>com.mystore.testcases.Login@5be49b60</td></tr>
+<tr>
+<td title='com.mystore.testcases.FetchProductLinksTest.fetchAndWriteProductLinks()'><b>fetchAndWriteProductLinks</b><br>Test class: com.mystore.testcases.FetchProductLinksTest<br>Test method: Product listing page (New): Fetch product links and append in the excelsheet</td>
+<td></td>
+<td>6</td>
+<td>com.mystore.testcases.FetchProductLinksTest@f415a95</td></tr>
+<tr>
+<td title='com.mystore.testcases.IndexPageTest.verifyTitle()'><b>verifyTitle</b><br>Test class: com.mystore.testcases.IndexPageTest<br>Test method: HomePage : Verify the homepage title</td>
+<td></td>
+<td>0</td>
+<td>com.mystore.testcases.IndexPageTest@4e31276e</td></tr>
+<tr>
+<td title='com.mystore.testcases.SearchTest.testValidSearchShowsResults()'><b>testValidSearchShowsResults</b><br>Test class: com.mystore.testcases.SearchTest<br>Test method: Verify search with valid term and display first 5 product name</td>
+<td></td>
+<td>6</td>
+<td>com.mystore.testcases.SearchTest@2931522b</td></tr>
+<tr>
+<td title='com.mystore.testcases.Login.loginWithValidCredentials()'><b>loginWithValidCredentials</b><br>Test class: com.mystore.testcases.Login<br>Test method: Login : Verify Login popup with valid credentials<br>Parameters: priti.kasar@magnetoitsolutions.com, Priti@123</td>
+<td></td>
+<td>4</td>
+<td>com.mystore.testcases.Login@5be49b60</td></tr>
+<tr>
+<td title='com.mystore.testcases.IndexPageTest.verifyLogo()'><b>verifyLogo</b><br>Test class: com.mystore.testcases.IndexPageTest<br>Test method: HomePage : Verify the homepage logo</td>
+<td></td>
+<td>0</td>
+<td>com.mystore.testcases.IndexPageTest@4e31276e</td></tr>
+<tr>
+<td title='com.mystore.testcases.ShoppingCartTest.verifyShoppingCartDetails()'><b>verifyShoppingCartDetails</b><br>Test class: com.mystore.testcases.ShoppingCartTest<br>Test method: Shopping Cart : Validate product and prices in Shopping Cart match Product Page</td>
+<td></td>
+<td>0</td>
+<td>com.mystore.testcases.ShoppingCartTest@724f138e</td></tr>
+<tr>
+<td title='com.mystore.testcases.CheckoutPageTest.verifyFullCheckoutFlow()'><b>verifyFullCheckoutFlow</b><br>Test class: com.mystore.testcases.CheckoutPageTest<br>Test method: Verify full checkout flow</td>
+<td></td>
+<td>58</td>
+<td>com.mystore.testcases.CheckoutPageTest@37eeec90</td></tr>
+<tr>
+<td title='com.mystore.testcases.IndexPageTest.testNavigationToHomeViaLogo()'><b>testNavigationToHomeViaLogo</b><br>Test class: com.mystore.testcases.IndexPageTest<br>Test method: HomePage : Verify navigation to homepage via logo</td>
+<td></td>
+<td>1</td>
+<td>com.mystore.testcases.IndexPageTest@4e31276e</td></tr>
+<tr>
+<td title='com.mystore.testcases.ProductPageTest.verifyProductDetails()'><b>verifyProductDetails</b><br>Test class: com.mystore.testcases.ProductPageTest<br>Test method: Product Detail page : Verify product title, SKU, and price</td>
+<td></td>
+<td>0</td>
+<td>com.mystore.testcases.ProductPageTest@cf65451</td></tr>
+<tr>
+<td title='com.mystore.testcases.RegistrationTest.verifyExistingEmailRegistration()'><b>verifyExistingEmailRegistration</b><br>Test class: com.mystore.testcases.RegistrationTest<br>Test method: Registration : Verify registration with already registered email</td>
+<td></td>
+<td>6</td>
+<td>com.mystore.testcases.RegistrationTest@114a85c2</td></tr>
+<tr>
+<td title='com.mystore.testcases.RegistrationTest.verifyRequiredFieldValidation()'><b>verifyRequiredFieldValidation</b><br>Test class: com.mystore.testcases.RegistrationTest<br>Test method: Registration : Verify required field validation</td>
+<td></td>
+<td>5</td>
+<td>com.mystore.testcases.RegistrationTest@114a85c2</td></tr>
+<tr>
+<td title='com.mystore.testcases.SearchTest.testInvalidSearchShowsNoResultsMessage()'><b>testInvalidSearchShowsNoResultsMessage</b><br>Test class: com.mystore.testcases.SearchTest<br>Test method: Verify search with invalid term and display search result message</td>
+<td></td>
+<td>6</td>
+<td>com.mystore.testcases.SearchTest@2931522b</td></tr>
+</table><p>
+</body>
+</html>

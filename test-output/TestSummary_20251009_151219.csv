@@ -1,0 +1,12 @@
+TestCase,Status,ExecutionTime(ms),StartTime
+Login : Verify Login popup with invalid credentials,PASSED,3829,Thu Oct 09 15:01:54 IST 2025
+Registration: Verify user registration with valid data,SKIPPED,6,Thu Oct 09 15:11:17 IST 2025
+HomePage : Verify the homepage logo,SKIPPED,3,Thu Oct 09 15:01:10 IST 2025
+Registration: Verify required field validation,SKIPPED,4,Thu Oct 09 15:08:46 IST 2025
+HomePage : Verify navigation to homepage via logo,SKIPPED,7,Thu Oct 09 15:01:10 IST 2025
+Verify search with random valid term and display first 5 product names,SKIPPED,0,Thu Oct 09 15:04:24 IST 2025
+Registration: Verify registration with already registered email,SKIPPED,7,Thu Oct 09 15:06:35 IST 2025
+HomePage : Verify the homepage title,SKIPPED,1,Thu Oct 09 15:01:10 IST 2025
+Login : Verify Login popup with valid credentials,SKIPPED,12,Thu Oct 09 15:02:46 IST 2025
+Login : Verify SignIn element presence,SKIPPED,0,Thu Oct 09 15:02:46 IST 2025
+Verify search with invalid term and display search result message,SKIPPED,8,Thu Oct 09 15:04:24 IST 2025
