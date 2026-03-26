@@ -81,6 +81,7 @@ public class CreditBoostPage {
 
     public void selectSavedCardAndEnterCVV(String cvv) {
 
+
     // Step 1: Select saved card
     scrollAndClick(wait.until(ExpectedConditions.elementToBeClickable(savedCardRadio)));
 
@@ -131,35 +132,41 @@ public void waitForLoaderToDisappear() throws InterruptedException {
     WebElement placeOrder = wait.until(ExpectedConditions.presenceOfElementLocated(placeOrderBtn));
 
     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", placeOrder);
+        wait.until(ExpectedConditions.visibilityOf(placeOrder));
 
-    for (int i = 0; i < 3; i++) {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(placeOrder)).click();
-            break;
-        } catch (Exception e) {
-            System.out.println("Retry clicking Place Order...");
-            waitForLoaderToDisappear();
-        }
+
+     try {
+        placeOrder.click();
+    } catch (Exception e) {
+        System.out.println("⚠️ Normal click failed, using JS click");
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", placeOrder);
     }
+
 
     System.out.println("✅ Place Order clicked");
 }
 
     public String waitForOrderSuccessAndGetOrderId() {
 
-        wait.until(ExpectedConditions.urlContains("success"));
+       // 1. Wait for URL to reach success
+    wait.until(ExpectedConditions.urlContains("success"));
 
-        // Wait for title update
-        try { Thread.sleep(3000); } catch (Exception e) {}
+    // 2. Wait for the Page Title to actually contain digits (max 10 sec)
+    // This replaces Thread.sleep(3000)
+    wait.until(d -> d.getTitle().matches(".*\\d+.*"));
 
-        String title = driver.getTitle();  // e.g. Order#2004341801
-        System.out.println("Page Title: " + title);
+    String title = driver.getTitle();
+    System.out.println("📄 Page Title: " + title);
 
-        String orderId = title.replaceAll("[^0-9]", "");
+    // 3. Extract only the digits
+    String orderId = title.replaceAll("[^0-9]", "");
 
-        System.out.println("✅ Order ID: " + orderId);
+    if (orderId.isEmpty()) {
+        throw new RuntimeException("❌ Order ID not found in Title: " + title);
+    }
 
-        return orderId;
+    System.out.println("✅ Captured Credit Order ID: " + orderId);
+    return orderId;
     }
 
     // -----------------------------

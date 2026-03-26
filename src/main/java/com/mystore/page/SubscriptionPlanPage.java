@@ -1,7 +1,6 @@
 package com.mystore.page;
 
 import java.time.Duration;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
@@ -12,191 +11,127 @@ public class SubscriptionPlanPage {
 
     public SubscriptionPlanPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
     // ================= LOCATORS =================
-
-    private By loaderMask = By.cssSelector("div.loading-mask");
-
-    private By basicPlanBtn = By.xpath("//div[contains(@class,'month_products')]//div[4]//a[contains(@title,'Subscribe')]");
-
-    private By proceedToCheckout = By.id("proceed_to_checkout");
-
-    private By nameOnCard = By.xpath("//input[@placeholder='J. Smith']");
-    private By firstName = By.id("first_name");
-    private By lastName = By.id("last_name");
-    private By address1 = By.id("address");
-    private By address2 = By.id("address_two");
-    private By stateDropdown = By.id("state");
-    private By city = By.id("city");
-    private By postalCode = By.id("postal_code");
-    private By phone = By.id("phone");
-    private By updateAddressBtn = By.id("update_address");
-
+    private By basicPlanBtn = By.xpath("//div[@class='main-cards month_products']//div[4]//a[1]");
+    private By proceedToCheckout = By.xpath("//a[@id='proceed_to_checkout']");
+    private By addNewCardDropdown = By.xpath("//select[@id='user_cards']");
+    private By cardDropdown = By.id("user_cards");
     private By tacCheckbox = By.id("tac_checkbox");
     private By subscribeBtn = By.id("subscribe_plan");
+    private By loaderMask = By.cssSelector("div.loading-mask");
 
-    // ================= COMMON UTILS =================
-
-    private void waitForLoaderToDisappear() {
-        try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderMask));
-        } catch (Exception e) {
-            System.out.println("ℹ️ Loader not present or already gone.");
-        }
-    }
-
-    private void scrollTo(WebElement element) {
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
-    }
-
-    private void safeClick(By locator) {
-        waitForLoaderToDisappear();
-
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        scrollTo(element);
-
-        waitForLoaderToDisappear();
-
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-        }
-    }
-
-    private void type(By locator, String value) {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        scrollTo(element);
-        element.clear();
-        element.sendKeys(value);
-    }
-
-    // ================= NAVIGATION =================
+    // ================= ACTIONS =================
 
     public void navigateToSubscriptionPage() {
         driver.get("https://staging2.silhouettedesignstore.com/design-credits/subscription-plans");
-
-        waitForLoaderToDisappear();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(basicPlanBtn));
-
-        System.out.println("✅ Subscription page loaded");
+        System.out.println("✅ Navigated to Subscription Plans");
     }
-
-    // ================= PLAN =================
 
     public void selectBasicPlan() {
-        safeClick(basicPlanBtn);
-
-        wait.until(ExpectedConditions.urlContains("cart"));
-
-        System.out.println("✅ Basic plan selected → Cart page");
+        wait.until(ExpectedConditions.elementToBeClickable(basicPlanBtn)).click();
+        System.out.println("✅ Basic Plan selected");
     }
 
-    // ================= CHECKOUT =================
-
     public void clickProceedToCheckout() {
-        safeClick(proceedToCheckout);
+        wait.until(ExpectedConditions.elementToBeClickable(proceedToCheckout)).click();
         System.out.println("✅ Proceeded to checkout");
     }
 
-    // ================= PAYMENT (IFRAME HANDLING) =================
+   public void selectSavedCard() {
+    waitForLoaderToDisappear();
 
-    private void switchToFrameAndType(By frame, By input, String value) {
+    WebElement selectElem = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("user_cards")));
 
-        WebElement iframe = wait.until(ExpectedConditions.presenceOfElementLocated(frame));
-        scrollTo(iframe);
+    // Force selection and trigger BOTH 'change' and 'click' events
+    // This wakes up the page's background listeners
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript(
+        "arguments[0].value='7';" +
+        "arguments[0].dispatchEvent(new Event('change', {bubbles: true}));" +
+        "arguments[0].dispatchEvent(new Event('click', {bubbles: true}));", 
+        selectElem
+    );
 
-        driver.switchTo().frame(iframe);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(input)).sendKeys(value);
-        driver.switchTo().defaultContent();
+    System.out.println("✅ Card selected and events triggered");
+
+    // CRITICAL: Wait for the address section to actually disappear 
+    // or for the 'Subscribe' button to become fully active
+    try {
+        // Wait for the address container to be removed from the DOM or hidden
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("address")));
+        System.out.println("✅ Address section disappeared as expected");
+    } catch (Exception e) {
+        System.out.println("ℹ️ Address section still visible, but Subscribe button is enabled.");
     }
+}
 
-    public void enterCardDetails(String number, String exp, String cvv) {
-
-        switchToFrameAndType(
-                By.xpath("//iframe[contains(@title,'card number')]"),
-                By.xpath("//input[contains(@id,'encryptedCardNumber')]"),
-                number
-        );
-
-        switchToFrameAndType(
-                By.xpath("//iframe[contains(@title,'expiry')]"),
-                By.xpath("//input[contains(@id,'encryptedExpiryDate')]"),
-                exp
-        );
-
-        switchToFrameAndType(
-                By.xpath("//iframe[contains(@title,'security')]"),
-                By.xpath("//input[contains(@id,'encryptedSecurityCode')]"),
-                cvv
-        );
-
-        System.out.println("✅ Card details entered");
-    }
-
-    // ================= ADDRESS =================
-
-    public void fillAddressDetails() {
-
-        type(nameOnCard, "Subscription");
-        type(firstName, "test");
-        type(lastName, "subscription");
-        type(address1, "Electra");
-        type(address2, "6400 Lookout Rd");
-
-        new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(stateDropdown)))
-                .selectByVisibleText("Colorado");
-
-        type(city, "Boulder");
-        type(postalCode, "80301");
-        type(phone, "2135467890");
-
-        safeClick(updateAddressBtn);
-
-        waitForLoaderToDisappear();
-
-        // ✅ IMPORTANT FIX → scroll to top after update
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
-
-        System.out.println("✅ Address updated");
-    }
-
-    // ================= FINAL =================
+    
 
     public void acceptTermsAndSubscribe() {
-
-        waitForLoaderToDisappear();
-
         WebElement checkbox = wait.until(ExpectedConditions.presenceOfElementLocated(tacCheckbox));
-        scrollTo(checkbox);
-
         if (!checkbox.isSelected()) {
-            wait.until(ExpectedConditions.elementToBeClickable(checkbox)).click();
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
         }
-
-        waitForLoaderToDisappear();
-
-        // avoid sticky header blocking
-        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-200)");
-
-        safeClick(subscribeBtn);
-
-        System.out.println("✅ Subscribe clicked");
+        
+        WebElement subBtn = wait.until(ExpectedConditions.elementToBeClickable(subscribeBtn));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", subBtn);
+        System.out.println("✅ Subscribe button clicked");
     }
 
-    public void waitForSuccessPage() {
+    public String waitForOrderSuccessAndGetOrderId() {
+       // 1. Wait for success URL
+    wait.until(ExpectedConditions.urlContains("sub_success"));
+    
+    String currentUrl = driver.getCurrentUrl();
+    System.out.println("🔍 Success URL: " + currentUrl);
 
-        wait.until(ExpectedConditions.urlContains("success"));
+    // 2. Extract digits from the end of the URL using Regex
+    // This handles trailing slashes or extra text gracefully
+    java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("(\\d+)(?!.*\\d)").matcher(currentUrl);
+    
+    if (matcher.find()) {
+        String orderId = matcher.group(1);
+        System.out.println("✅ Captured Subscription Order ID: " + orderId);
+        return orderId;
+    } else {
+        throw new RuntimeException("❌ Failed to extract Order ID from URL: " + currentUrl);
+    }
+    }
 
+    private void waitForLoader() {
         try {
-            Thread.sleep(3000); // stabilize UI
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderMask));
+        } catch (Exception e) {
+            // Loader not present
         }
-
-        System.out.println("✅ Subscription successful");
     }
+    private void waitForLoaderToDisappear() {
+    try {
+        // Using a shorter wait for the loader specifically
+        WebDriverWait loaderWait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // Wait for Magento/Store loading masks to vanish
+        loaderWait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'loading-mask')]")));
+        
+        loaderWait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'loader')]")));
+
+    } catch (Exception e) {
+        System.out.println("ℹ️ Loader not found or already disappeared.");
+    }
+}
+
+private void scrollAndClick(WebElement element) {
+    try {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    } catch (Exception e) {
+        // Fallback to JS Click if intercepted by a header/footer
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+}
 }

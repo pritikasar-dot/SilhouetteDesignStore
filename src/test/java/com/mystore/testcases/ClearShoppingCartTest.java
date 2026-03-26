@@ -40,7 +40,7 @@ public class ClearShoppingCartTest extends BaseClass {
         cartPage = new ShoppingCartPage(getDriver());
     }
 
-    @Test(description = "Clear shopping cart if items exist")
+    @Test(description = "Shopping Cart : Clear shopping cart if items exist")
     public void clearCartTest() {
 
         cartPage.navigateToCart();

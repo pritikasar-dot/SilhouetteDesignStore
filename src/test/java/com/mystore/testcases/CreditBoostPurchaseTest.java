@@ -49,7 +49,7 @@ public class CreditBoostPurchaseTest extends BaseClass {
         creditPage.navigateToCreditBoostPage();
     }
 
-    @Test(description = "Purchase Bronze Credit Boost with clean cart")
+    @Test(description = "Credit Boost : Purchase Bronze Credit Boost with coupon code and saved")
     public void purchaseCreditBoost() throws InterruptedException {
 
         // Step 1

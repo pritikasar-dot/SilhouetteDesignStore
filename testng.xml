@@ -9,8 +9,14 @@
 
     <test name="Sanity Tests">
         <classes>
-
-            <class name="com.mystore.testcases.CreditBoostPurchaseTest"/>
+            <class  name="com.mystore.testcases.IndexPageTest"/>
+            <class  name="com.mystore.testcases.Login"/>
+            <class  name="com.mystore.testcases.FetchProductLinksTest"/>
+            <class  name="com.mystore.testcases.SearchTest"/>
+            <class  name="com.mystore.testcases.ProductPageTest"/>
+            <class  name="com.mystore.testcases.ClearShoppingCartTest"/>
+            <class  name="com.mystore.testcases.CreditBoostPurchaseTest"/>
+            <class  name="com.mystore.testcases.SubscriptionPlanPurchaseTest"/>               
         </classes>
     </test>
 

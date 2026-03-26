@@ -24,7 +24,7 @@ public class ReportEmailTrigger implements ISuiteListener {
 
     // ================= RECIPIENTS =================
     private static final String TO_EMAILS = "kaspritiautomation@gmail.com";
-    private static final String CC_EMAILS = "priti.kasar+1@magnetoitsolutions.com";
+    private static final String CC_EMAILS = "priti.kasar+1@magnetoitsolutions.com,jaimin.b@magnetoitsolutions.com ,gajanan@magnetoitsolutions.com ,ravi.patel@bytestechnolab.com ";
     private static final String BCC_EMAILS = "pritik.magneto@gmail.com";
 
     // ================= FILE PATHS =================
@@ -34,7 +34,7 @@ public class ReportEmailTrigger implements ISuiteListener {
             System.getProperty("user.dir") + "/Screenshots/";
 
     private static final String SUBJECT =
-            "🧾 Silhouette Design Store | Automation Report";
+            "🧾 Silhouette Design Store | Automation Report | Staging Site | Priti Kasar";
 
     @Override
     public void onStart(ISuite suite) {
@@ -95,38 +95,54 @@ public class ReportEmailTrigger implements ISuiteListener {
     }
 
     // ================= EMAIL BODY =================
+  // ================= EMAIL BODY =================
     private String buildEmailBody(ISuite suite, Multipart multipart) {
 
-        return new StringBuilder()
-                .append("<html><body style='font-family:Segoe UI;'>")
+        StringBuilder body = new StringBuilder();
+        body.append("<html><body style='font-family: Calibri, sans-serif; color: #333;'>")
+            .append("<div style='background-color: #f4f4f4; padding: 20px;'>")
+            .append("<h2 style='color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 10px;'>🚀 Automation Execution Summary</h2>")
+            .append("<p>The test suite execution has completed. Please find the details below:</p>");
 
-                .append("<h2 style='color:#007BFF;'>Automation Execution Summary</h2>")
-                .append("<p>Suite execution completed successfully.</p>")
+        // ✅ NEW: MULTIPLE ORDER DETAILS SECTION
+        body.append("<div style='background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd;'>")
+            .append("<h3 style='margin-top: 0; color: #28a745;'>🧾 Order Confirmation(s)</h3>");
 
-                // ✅ Order Details Section
-                .append("<hr>")
-                .append("<h3>🧾 Order Details</h3>")
-                .append("<ul>")
-                .append("<li><b>Order ID:</b> ").append(getSafe(OrderContext.getOrderId())).append("</li>")
-                .append("<li><b>Order Type:</b> ").append(getSafe(OrderContext.getOrderType())).append("</li>")
-                .append("</ul>")
+        java.util.List<String> allOrders = OrderContext.getAllOrders();
+        if (allOrders != null && !allOrders.isEmpty()) {
+            body.append("<ul style='list-style: none; padding-left: 0;'>");
+            for (String order : allOrders) {
+                body.append("<li style='padding: 8px; margin-bottom: 5px; background: #e9f7ef; border-left: 4px solid #28a745;'>")
+                    .append("✅ <b>").append(order).append("</b>")
+                    .append("</li>");
+            }
+            body.append("</ul>");
+        } else {
+            body.append("<p style='color: #888;'>No orders were processed in this execution.</p>");
+        }
+        body.append("</div>");
 
-                // ✅ Test Summary
-                .append("<hr>")
-                .append(buildTestSummary(suite))
+        // ✅ TEST SUMMARY
+        body.append("<br><div style='background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd;'>")
+            .append(buildTestSummary(suite))
+            .append("</div>");
 
-                // ✅ Screenshots
-                .append("<hr><h4>📸 Failed Test Screenshots</h4>")
-                .append(attachScreenshots(multipart))
+        // ✅ SCREENSHOTS
+        body.append("<br><h4 style='color: #dc3545;'>📸 Failed Test Screenshots</h4>")
+            .append("<div style='background-color: #fff; padding: 10px; border: 1px solid #f5c6cb;'>")
+            .append(attachScreenshots(multipart))
+            .append("</div>");
 
-                // Footer
-                .append("<hr><p style='font-size:12px;color:gray;'>")
-                .append("This is an automated email.<br>")
-                .append("<b>Automation Framework</b>")
-                .append("</p>")
+        // FOOTER
+        body.append("<hr><p style='font-size: 11px; color: #777;'>")
+            .append("This is an automatically generated email from the <b>Silhouette Automation Framework</b>.<br>")
+            .append("Executed by: <b>Priti Kasar</b>")
+            .append("</p></div></body></html>");
 
-                .append("</body></html>")
-                .toString();
+        // ✅ CRITICAL: Clear the context after building the body so the next suite run starts fresh
+        OrderContext.clearOrders();
+
+        return body.toString();
     }
 
     // ================= TEST SUMMARY =================

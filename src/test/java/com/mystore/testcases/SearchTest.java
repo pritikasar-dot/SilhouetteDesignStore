@@ -31,7 +31,7 @@ public class SearchTest extends BaseClass{
     public void tearDownTest() {
         tearDown();  // closes browser after each test
     }
-    @Test(description = "Verify search with valid term and display first 5 product name", groups = { "sanity"}, priority = 1)
+    @Test(description = "Search Functionality :Verify search with valid term and display first 5 product name", groups = { "sanity"}, priority = 1)
     public void testValidSearchShowsResults() throws TimeoutException, InterruptedException {
 
         String searchTerm = "flower";
@@ -46,7 +46,7 @@ public class SearchTest extends BaseClass{
         Thread.sleep(3000);
     }
 
-    @Test(description = "Verify search with invalid term and display search result message", groups = {"sanity"}, priority = 2)
+    @Test(description = "Search Functionality : Verify search with invalid term and display search result message", groups = {"sanity"}, priority = 2)
     public void testInvalidSearchShowsNoResultsMessage() throws TimeoutException, InterruptedException {
     	 String invalidSearchTerm = "xyzabc123";
     	 homePage.searchTerm(invalidSearchTerm);

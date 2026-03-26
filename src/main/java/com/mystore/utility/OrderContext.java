@@ -1,29 +1,22 @@
 package com.mystore.utility;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderContext {
 
-    private static String orderId;
-    private static String orderType;
+    // Store a list of order strings (e.g., "Credit: 2004341801")
+    private static List<String> orderList = new ArrayList<>();
 
-    // ✅ Set both values
-    public static void setOrderDetails(String id, String type) {
-        orderId = id;
-        orderType = type;
+    public static void setOrderDetails(String orderId, String type) {
+        orderList.add(type + " Order ID: " + orderId);
     }
 
-    // ✅ Get Order ID
-    public static String getOrderId() {
-        return orderId;
+    public static List<String> getAllOrders() {
+        return orderList;
     }
 
-    // ✅ Get Order Type (Credit / Subscription)
-    public static String getOrderType() {
-        return orderType;
-    }
-
-    // ✅ Optional: clear after run
-    public static void clear() {
-        orderId = null;
-        orderType = null;
+    public static void clearOrders() {
+        orderList.clear();
     }
 }
