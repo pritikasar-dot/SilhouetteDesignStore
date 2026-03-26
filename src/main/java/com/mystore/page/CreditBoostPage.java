@@ -14,50 +14,58 @@ public class CreditBoostPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    // Locators
-    private By bronzeSelectBtn = By.xpath("//form[@id='product_addtocart_form_344803']//button[@title='Select']");
-    private By couponTextbox = By.id("discount-code");
-    private By applyCouponBtn = By.xpath("//button[@title='Apply Coupon']");
-
-    private By cardNumber = By.xpath("//input[contains(@id,'encryptedCardNumber')]");
-    private By expiryDate = By.xpath("//input[contains(@id,'encryptedExpiryDate')]");
-    private By cvv = By.xpath("//input[contains(@id,'encryptedSecurityCode')]");
-
-    private By placeOrderBtn = By.xpath("//form[@id='adyen-cc-form']//button[@title='Place Order']");
-
     public CreditBoostPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
+    // Locators
+    private By bronzeSelectBtn = By.xpath("//form[@id='product_addtocart_form_344803']//button[@title='Select']");
+    
+    private By billingAddress = By.xpath("//div[@class='billing-address-item-details']");
+    
+    private By couponTextbox = By.id("discount-code");
+    private By applyCouponBtn = By.xpath("//button[@title='Apply Coupon']");
+    
+    private By savedCardRadio = By.xpath("//input[@id='adyen_cc_vault_37023']");
+    private By cvvField = By.xpath("//input[contains(@id,'encryptedSecurityCode')]");
+    
+    private By placeOrderBtn = By.xpath("//div[contains(@class,'payment-method _active')]//button[contains(@title,'Place Order')]");
+
+    // -----------------------------
     public void navigateToCreditBoostPage() {
         driver.get("https://staging2.silhouettedesignstore.com/get-credits/credit-boosts.html");
     }
 
-    /**
-     * Click Bronze → Wait for checkout
-     * If redirect fails → fallback to direct checkout
-     */
     public void selectBronzeAndEnsureCheckout() {
 
         wait.until(ExpectedConditions.elementToBeClickable(bronzeSelectBtn)).click();
 
         try {
-            // Wait for redirect
             wait.until(ExpectedConditions.urlContains("/checkout/#payment"));
-            System.out.println("✅ Redirected to Checkout Page");
-
         } catch (Exception e) {
-
-            System.out.println("⚠️ Redirect failed, navigating manually to checkout...");
-
-            driver.get("https://staging2.silhouettedesignstore.com/checkout/");
-
-            wait.until(ExpectedConditions.or(
-                    ExpectedConditions.urlContains("/checkout"),
-                    ExpectedConditions.visibilityOfElementLocated(couponTextbox)
-            ));
+            driver.get("https://staging2.silhouettedesignstore.com/checkout/#payment");
         }
+
+        waitForPageLoad();
+        System.out.println("✅ Checkout page loaded");
+    }
+
+    // -----------------------------
+    // Page Load Wait
+    // -----------------------------
+    public void waitForPageLoad() {
+        wait.until(driver ->
+                ((JavascriptExecutor) driver)
+                        .executeScript("return document.readyState")
+                        .equals("complete"));
+    }
+
+    // -----------------------------
+    public void selectBillingAddress() {
+        WebElement address = wait.until(ExpectedConditions.visibilityOfElementLocated(billingAddress));
+        scrollAndClick(address);
+        System.out.println("✅ Billing address selected");
     }
 
     public void applyCoupon(String coupon) {
@@ -66,58 +74,101 @@ public class CreditBoostPage {
         couponField.clear();
         couponField.sendKeys(coupon);
 
-        wait.until(ExpectedConditions.elementToBeClickable(applyCouponBtn)).click();
+        scrollAndClick(wait.until(ExpectedConditions.elementToBeClickable(applyCouponBtn)));
 
         System.out.println("✅ Coupon applied: " + coupon);
     }
 
-    public void enterCardDetails(String number, String exp, String code) {
+    public void selectSavedCardAndEnterCVV(String cvv) {
 
-    // Step 1: Scroll to payment section
-    WebElement cardFrame = wait.until(ExpectedConditions.presenceOfElementLocated(
-            By.xpath("//iframe[contains(@title,'card number')]")));
+    // Step 1: Select saved card
+    scrollAndClick(wait.until(ExpectedConditions.elementToBeClickable(savedCardRadio)));
 
-    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cardFrame);
+    // Step 2: Wait for CVV iframe to appear
+    WebElement cvvFrame = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.xpath("//iframe[contains(@title,'security code')]")));
 
-    // Step 2: Switch to Card Number iframe
-    driver.switchTo().frame(cardFrame);
-    wait.until(ExpectedConditions.visibilityOfElementLocated(
-            By.xpath("//input[contains(@id,'encryptedCardNumber')]")))
-            .sendKeys(number);
+    // Scroll to iframe
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cvvFrame);
 
-    driver.switchTo().defaultContent();
-
-    // Step 3: Expiry Date iframe
-    WebElement expFrame = driver.findElement(By.xpath("//iframe[contains(@title,'expiry')]"));
-    driver.switchTo().frame(expFrame);
-    driver.findElement(By.xpath("//input[contains(@id,'encryptedExpiryDate')]"))
-            .sendKeys(exp);
-    driver.switchTo().defaultContent();
-
-    // Step 4: CVV iframe
-    WebElement cvvFrame = driver.findElement(By.xpath("//iframe[contains(@title,'security')]"));
+    // Step 3: Switch to iframe
     driver.switchTo().frame(cvvFrame);
-    driver.findElement(By.xpath("//input[contains(@id,'encryptedSecurityCode')]"))
-            .sendKeys(code);
+
+    // Step 4: Enter CVV
+    WebElement cvvInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//input[contains(@id,'encryptedSecurityCode')]")));
+
+    cvvInput.clear();
+    cvvInput.sendKeys(cvv);
+
+    // Step 5: Switch back
     driver.switchTo().defaultContent();
 
-    System.out.println("✅ Card details entered successfully");
+    System.out.println("✅ CVV entered inside iframe");
+}
+public void waitForLoaderToDisappear() throws InterruptedException {
+    try {
+        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        shortWait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'loading-mask')]")));
+
+        shortWait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'loader')]")));
+
+    } catch (Exception e) {
+        System.out.println("⚠️ Loader not found or already gone");
+            Thread.sleep(2000);
+
+    }
 }
 
-    public void clickPlaceOrder() {
+   public void clickPlaceOrder() throws InterruptedException {
 
-        WebElement placeOrder = wait.until(ExpectedConditions.elementToBeClickable(placeOrderBtn));
+    waitForLoaderToDisappear();
+    
 
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", placeOrder);
-        placeOrder.click();
+    WebElement placeOrder = wait.until(ExpectedConditions.presenceOfElementLocated(placeOrderBtn));
 
-        System.out.println("✅ Place Order clicked");
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", placeOrder);
+
+    for (int i = 0; i < 3; i++) {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(placeOrder)).click();
+            break;
+        } catch (Exception e) {
+            System.out.println("Retry clicking Place Order...");
+            waitForLoaderToDisappear();
+        }
     }
 
-    public void waitForOrderSuccess() {
+    System.out.println("✅ Place Order clicked");
+}
+
+    public String waitForOrderSuccessAndGetOrderId() {
 
         wait.until(ExpectedConditions.urlContains("success"));
 
-        System.out.println("✅ Order placed successfully");
+        // Wait for title update
+        try { Thread.sleep(3000); } catch (Exception e) {}
+
+        String title = driver.getTitle();  // e.g. Order#2004341801
+        System.out.println("Page Title: " + title);
+
+        String orderId = title.replaceAll("[^0-9]", "");
+
+        System.out.println("✅ Order ID: " + orderId);
+
+        return orderId;
+    }
+
+    // -----------------------------
+    private void scrollAndClick(WebElement element) {
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
     }
 }

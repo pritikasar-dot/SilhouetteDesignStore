@@ -1,7 +1,9 @@
 package listeners;
 
+import com.mystore.utility.OrderContext;
 import com.mystore.utility.TestResultReporter;
 import org.testng.*;
+
 import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -10,67 +12,59 @@ import java.util.Properties;
 
 /**
  * 📧 ReportEmailTrigger
- * ---------------------
- * Sends a polished HTML summary email with test descriptions,
- * screenshots, and attached Extent / CSV / DOCX reports
- * after the entire TestNG suite execution completes.
+ * Sends HTML summary email with reports + screenshots + order details
  */
 public class ReportEmailTrigger implements ISuiteListener {
 
-    // =================== ✉️ SMTP CONFIGURATION ===================
+    // ================= SMTP CONFIG =================
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
     private static final String SMTP_USER = "priti.kasar@magnetoitsolutions.com";
-    private static final String SMTP_PASS = "jcppaxakvelzvtwi"; // Gmail app password (not personal password)
+    private static final String SMTP_PASS = "jcppaxakvelzvtwi";
 
-    // =================== 📤 RECIPIENTS ===================
- private static final String TO_EMAILS = "kaspritiautomation@gmail.com";
- //   private static final String TO_EMAILS = "kaspritiautomation@gmail.com";
-    private static final String CC_EMAILS = "priti.kasar+1@magnetoitsolutions.com,jaimin.b@magnetoitsolutions.com";
+    // ================= RECIPIENTS =================
+    private static final String TO_EMAILS = "kaspritiautomation@gmail.com";
+    private static final String CC_EMAILS = "priti.kasar+1@magnetoitsolutions.com";
     private static final String BCC_EMAILS = "pritik.magneto@gmail.com";
 
+    // ================= FILE PATHS =================
+    private static final String REPORT_HTML =
+            System.getProperty("user.dir") + "/test-output/ExtentReport.html";
+    private static final String SCREENSHOT_DIR =
+            System.getProperty("user.dir") + "/Screenshots/";
 
-    // =================== 📁 FILE PATHS ===================
-    private static final String REPORT_HTML = System.getProperty("user.dir") + "/test-output/ExtentReport.html";
-    private static final String SCREENSHOT_DIR = System.getProperty("user.dir") + "/Screenshots/";
-
-    // =================== 📩 EMAIL CONTENT ===================
-    private static final String SUBJECT = "🧾 Silhouette Design Store | Automation Test Execution Report";
+    private static final String SUBJECT =
+            "🧾 Silhouette Design Store | Automation Report";
 
     @Override
     public void onStart(ISuite suite) {
-        System.out.println("🚀 Starting suite execution: " + suite.getName());
+        System.out.println("🚀 Suite Started: " + suite.getName());
     }
 
     @Override
     public void onFinish(ISuite suite) {
-        System.out.println("📧 Preparing test summary email...");
+
+        System.out.println("📧 Sending execution report email...");
 
         try {
-            // 1️⃣ Generate additional reports (if any)
+            // Generate reports
             String csvReport = TestResultReporter.generateCSVReport(suite);
             String docxReport = TestResultReporter.generateDOCXReport(suite);
 
-            // 2️⃣ Configure SMTP session
-            Properties props = new Properties();
-            props.put("mail.smtp.host", SMTP_HOST);
-            props.put("mail.smtp.port", SMTP_PORT);
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-
-            Session session = Session.getInstance(props, new Authenticator() {
+            // Setup SMTP
+            Session session = Session.getInstance(getSMTPProperties(), new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(SMTP_USER, SMTP_PASS);
                 }
             });
 
-            // 3️⃣ Build main email message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SMTP_USER, "Automation Framework"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(TO_EMAILS));
 
             if (!CC_EMAILS.isEmpty())
                 message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(CC_EMAILS));
+
             if (!BCC_EMAILS.isEmpty())
                 message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(BCC_EMAILS));
 
@@ -78,155 +72,176 @@ public class ReportEmailTrigger implements ISuiteListener {
 
             Multipart multipart = new MimeMultipart();
 
-            // 4️⃣ Create HTML Body
+            // HTML BODY
             MimeBodyPart htmlBody = new MimeBodyPart();
-            StringBuilder html = new StringBuilder();
+            htmlBody.setContent(buildEmailBody(suite, multipart), "text/html; charset=utf-8");
 
-            html.append("<html><body style='font-family:Segoe UI,Arial,sans-serif;'>")
-                .append("<h2 style='color:#007BFF;'>Silhouette Design Store Automation Summary</h2>")
-                .append("<p>The automation suite has finished execution. Below is the summary:</p>")
-                .append("<hr>")
-                .append(buildTestSummary(suite))
-                .append("<hr><h4>📸 Screenshot Preview</h4>")
-                .append(attachScreenshots(multipart))
-                .append("<hr><p>Attached detailed reports:</p><ul>")
-                .append("<li>ExtentReport.html</li>")
-                .append("<li>CSV Report</li>")
-                .append("<li>DOCX Report</li>")
-                .append("</ul>")
-                .append("<p style='font-size:13px;color:gray;'>")
-                .append("This is an automated email. Please do not reply directly.<br>")
-                .append("— <b>Automation Framework</b>")
-                .append("</p></body></html>");
-
-            htmlBody.setContent(html.toString(), "text/html; charset=utf-8");
             multipart.addBodyPart(htmlBody);
 
-            // 5️⃣ Attach reports
+            // Attach reports
             attachIfExists(multipart, REPORT_HTML);
             attachIfExists(multipart, csvReport);
             attachIfExists(multipart, docxReport);
 
-            // 6️⃣ Send email
             message.setContent(multipart);
             Transport.send(message);
-            System.out.println("✅ Email sent successfully with detailed test descriptions and attachments!");
+
+            System.out.println("✅ Email sent successfully!");
 
         } catch (Exception e) {
-            System.err.println("❌ Failed to send summary email: " + e.getMessage());
+            System.err.println("❌ Email sending failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    // =================== 🧾 BUILD TEST SUMMARY ===================
+    // ================= EMAIL BODY =================
+    private String buildEmailBody(ISuite suite, Multipart multipart) {
+
+        return new StringBuilder()
+                .append("<html><body style='font-family:Segoe UI;'>")
+
+                .append("<h2 style='color:#007BFF;'>Automation Execution Summary</h2>")
+                .append("<p>Suite execution completed successfully.</p>")
+
+                // ✅ Order Details Section
+                .append("<hr>")
+                .append("<h3>🧾 Order Details</h3>")
+                .append("<ul>")
+                .append("<li><b>Order ID:</b> ").append(getSafe(OrderContext.getOrderId())).append("</li>")
+                .append("<li><b>Order Type:</b> ").append(getSafe(OrderContext.getOrderType())).append("</li>")
+                .append("</ul>")
+
+                // ✅ Test Summary
+                .append("<hr>")
+                .append(buildTestSummary(suite))
+
+                // ✅ Screenshots
+                .append("<hr><h4>📸 Failed Test Screenshots</h4>")
+                .append(attachScreenshots(multipart))
+
+                // Footer
+                .append("<hr><p style='font-size:12px;color:gray;'>")
+                .append("This is an automated email.<br>")
+                .append("<b>Automation Framework</b>")
+                .append("</p>")
+
+                .append("</body></html>")
+                .toString();
+    }
+
+    // ================= TEST SUMMARY =================
     private String buildTestSummary(ISuite suite) {
+
         StringBuilder summary = new StringBuilder();
 
-        for (ISuiteResult suiteResult : suite.getResults().values()) {
-            ITestContext context = suiteResult.getTestContext();
+        for (ISuiteResult result : suite.getResults().values()) {
 
-            int total = context.getAllTestMethods().length;
-            int passed = context.getPassedTests().size();
-            int failed = context.getFailedTests().size();
-            int skipped = context.getSkippedTests().size();
+            ITestContext context = result.getTestContext();
 
             summary.append("<h3>📋 Test Summary</h3>")
-                   .append("<ul>")
-                   .append("<li><b>Total:</b> ").append(total).append("</li>")
-                   .append("<li style='color:green;'><b>Passed:</b> ").append(passed).append("</li>")
-                   .append("<li style='color:red;'><b>Failed:</b> ").append(failed).append("</li>")
-                   .append("<li style='color:orange;'><b>Skipped:</b> ").append(skipped).append("</li>")
-                   .append("</ul>");
+                    .append("<ul>")
+                    .append("<li><b>Total:</b> ").append(context.getAllTestMethods().length).append("</li>")
+                    .append("<li style='color:green;'>Passed: ").append(context.getPassedTests().size()).append("</li>")
+                    .append("<li style='color:red;'>Failed: ").append(context.getFailedTests().size()).append("</li>")
+                    .append("<li style='color:orange;'>Skipped: ").append(context.getSkippedTests().size()).append("</li>")
+                    .append("</ul>");
 
-            // ✅ Passed tests
-            summary.append("<h4 style='color:green;'>✅ Passed Tests</h4><ul>");
-            for (ITestResult result : context.getPassedTests().getAllResults()) {
-                summary.append(formatTestDescription(result));
-            }
-            summary.append("</ul>");
-
-            // ❌ Failed tests
-            summary.append("<h4 style='color:red;'>❌ Failed Tests</h4><ul>");
-            for (ITestResult result : context.getFailedTests().getAllResults()) {
-                summary.append(formatTestDescription(result));
-            }
-            summary.append("</ul>");
-
-            // ⚠️ Skipped tests
-            summary.append("<h4 style='color:orange;'>⚠️ Skipped Tests</h4><ul>");
-            for (ITestResult result : context.getSkippedTests().getAllResults()) {
-                summary.append(formatTestDescription(result));
-            }
-            summary.append("</ul>");
+            appendTestList(summary, "✅ Passed", context.getPassedTests());
+            appendTestList(summary, "❌ Failed", context.getFailedTests());
+            appendTestList(summary, "⚠️ Skipped", context.getSkippedTests());
         }
 
         return summary.toString();
     }
 
-    // =================== 🧠 FORMAT TEST DESCRIPTION (UPDATED) ===================
-    private String formatTestDescription(ITestResult result) {
-        String description = result.getMethod().getDescription();
+    private void appendTestList(StringBuilder sb, String title, IResultMap results) {
 
-        // ✅ Only include test description (ignore method name entirely)
-        if (description != null && !description.isEmpty()) {
-            return "<li>" + description + "</li>";
-        } else {
-            // If description missing, skip listing entirely
-            return "";
+        sb.append("<h4>").append(title).append("</h4><ul>");
+
+        for (ITestResult result : results.getAllResults()) {
+            String desc = result.getMethod().getDescription();
+            if (desc != null && !desc.isEmpty()) {
+                sb.append("<li>").append(desc).append("</li>");
+            }
         }
+
+        sb.append("</ul>");
     }
 
-    // =================== 📎 ATTACH SCREENSHOTS ===================
+    // ================= SCREENSHOTS =================
     private String attachScreenshots(Multipart multipart) {
+
         StringBuilder sb = new StringBuilder();
         File folder = new File(SCREENSHOT_DIR);
 
-        // Only pick screenshots with _FAILED_ in the name
-        File[] screenshots = folder.listFiles((dir, name) -> name.contains("_FAILED_") && (name.endsWith(".png") || name.endsWith(".jpg")));
+        File[] screenshots = folder.listFiles((dir, name) ->
+                name.contains("_FAILED_") && name.endsWith(".png"));
 
         if (screenshots != null && screenshots.length > 0) {
-            int counter = 1;
-            for (File screenshot : screenshots) {
-                String cid = "img" + counter;
-                sb.append("<p><b>").append(screenshot.getName()).append("</b><br>")
-                  .append("<img src='cid:").append(cid)
-                  .append("' width='600' style='border:1px solid #ccc;border-radius:8px;'/></p>");
+
+            int i = 1;
+
+            for (File file : screenshots) {
+                String cid = "img" + i;
+
+                sb.append("<p><b>").append(file.getName()).append("</b><br>")
+                        .append("<img src='cid:").append(cid)
+                        .append("' width='600'/></p>");
 
                 try {
-                    MimeBodyPart imagePart = new MimeBodyPart();
-                    DataSource fds = new FileDataSource(screenshot);
-                    imagePart.setDataHandler(new DataHandler(fds));
-                    imagePart.setHeader("Content-ID", "<" + cid + ">");
-                    imagePart.setDisposition(MimeBodyPart.INLINE);
-                    multipart.addBodyPart(imagePart);
+                    MimeBodyPart img = new MimeBodyPart();
+                    img.setDataHandler(new DataHandler(new FileDataSource(file)));
+                    img.setHeader("Content-ID", "<" + cid + ">");
+                    img.setDisposition(MimeBodyPart.INLINE);
+                    multipart.addBodyPart(img);
                 } catch (Exception e) {
-                    System.err.println("⚠️ Error attaching screenshot: " + e.getMessage());
+                    System.err.println("⚠️ Screenshot attach failed: " + e.getMessage());
                 }
-                counter++;
+
+                i++;
             }
+
         } else {
-            sb.append("<p><i>No failed test screenshots available.</i></p>");
+            sb.append("<p>No failed screenshots.</p>");
         }
 
         return sb.toString();
     }
 
-    // =================== 📁 ATTACH FILES IF EXISTS ===================
-    private void attachIfExists(Multipart multipart, String filePath) {
-        if (filePath == null) return;
-        File file = new File(filePath);
-        if (file.exists()) {
-            try {
-                MimeBodyPart attachment = new MimeBodyPart();
-                attachment.setDataHandler(new DataHandler(new FileDataSource(file)));
-                attachment.setFileName(file.getName());
-                multipart.addBodyPart(attachment);
-                System.out.println("📎 Attached: " + file.getName());
-            } catch (Exception e) {
-                System.err.println("⚠️ Failed to attach " + file.getName() + ": " + e.getMessage());
-            }
-        } else {
-            System.out.println("⚠️ Attachment not found: " + filePath);
+    // ================= ATTACH FILE =================
+    private void attachIfExists(Multipart multipart, String path) {
+
+        if (path == null) return;
+
+        File file = new File(path);
+
+        if (!file.exists()) return;
+
+        try {
+            MimeBodyPart part = new MimeBodyPart();
+            part.setDataHandler(new DataHandler(new FileDataSource(file)));
+            part.setFileName(file.getName());
+            multipart.addBodyPart(part);
+
+        } catch (Exception e) {
+            System.err.println("⚠️ Attachment failed: " + file.getName());
         }
+    }
+
+    // ================= SMTP CONFIG =================
+    private Properties getSMTPProperties() {
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", SMTP_HOST);
+        props.put("mail.smtp.port", SMTP_PORT);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        return props;
+    }
+
+    // ================= NULL SAFETY =================
+    private String getSafe(String value) {
+        return (value == null || value.isEmpty()) ? "N/A" : value;
     }
 }

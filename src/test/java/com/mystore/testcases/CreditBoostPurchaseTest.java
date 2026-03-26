@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 
 import com.mystore.base.BaseClass;
 import com.mystore.page.*;
+import com.mystore.utility.ExcelUtility;
+import com.mystore.utility.OrderContext;
 
 public class CreditBoostPurchaseTest extends BaseClass {
 
@@ -39,36 +41,44 @@ public class CreditBoostPurchaseTest extends BaseClass {
         creditPage = new CreditBoostPage(getDriver());
         cartPage = new ShoppingCartPage(getDriver());
 
-        // ✅ Clear cart before purchase
+        // Clear cart
         cartPage.navigateToCart();
         cartPage.clearCartIfNotEmpty();
 
-        // Navigate to credit boost page
+        // Navigate to Credit Boost page
         creditPage.navigateToCreditBoostPage();
     }
 
     @Test(description = "Purchase Bronze Credit Boost with clean cart")
-    public void purchaseCreditBoost() {
+    public void purchaseCreditBoost() throws InterruptedException {
 
-        // Step 1: Select product & ensure checkout
+        // Step 1
         creditPage.selectBronzeAndEnsureCheckout();
 
-        // Step 2: Apply coupon
-        creditPage.applyCoupon("gajanan100");
+        // Step 2
+        creditPage.selectBillingAddress();
 
-        // Step 3: Enter payment details
-        creditPage.enterCardDetails(
-                "4111111145551142",
-                "03/30",
-                "737"
-        );
+        // Step 3
+        creditPage.applyCoupon("Gajanan100");
 
-        // Step 4: Place order
+        // Step 4
+        creditPage.selectSavedCardAndEnterCVV("737");
+
+        // Step 5
         creditPage.clickPlaceOrder();
 
-        // Step 5: Validate success
-        creditPage.waitForOrderSuccess();
+        // Step 6
+        String orderId = creditPage.waitForOrderSuccessAndGetOrderId();
 
-        System.out.println("✅ Purchase completed successfully.");
+        System.out.println("✅ Purchase completed. Order ID: " + orderId);
+
+        Assert.assertTrue(orderId != null && orderId.length() > 5,
+                "❌ Order ID not captured");
+
+        // ✅ Save globally (for email)
+        OrderContext.setOrderDetails(orderId, "Credit");
+
+        // ✅ Save in Excel (new method)
+        ExcelUtility.appendOrderRecord(orderId, "Credit");
     }
 }
