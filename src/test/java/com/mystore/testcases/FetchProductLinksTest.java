@@ -16,7 +16,7 @@ import com.mystore.utility.ExcelUtility;
 
 public class FetchProductLinksTest extends BaseClass {
 
-    private static final String EXCEL_PATH = System.getProperty("user.dir") + "/src/test/resources/TestData/TestData.xlsx";
+    private static final String EXCEL_PATH = System.getProperty("user.dir") + "/TestData/TestData.xlsx";
     private static final String SHEET_NAME = "ProductList";
 
     @Test(description = "Product listing page (New): Fetch product links and append in the excelsheet")

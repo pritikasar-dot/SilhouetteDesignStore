@@ -24,7 +24,7 @@ public class ReportEmailTrigger implements ISuiteListener {
 
     // ================= RECIPIENTS =================
     private static final String TO_EMAILS = "kaspritiautomation@gmail.com";
-    private static final String CC_EMAILS = "priti.kasar+1@magnetoitsolutions.com,jaimin.b@magnetoitsolutions.com ,gajanan@magnetoitsolutions.com ,ravi.patel@bytestechnolab.com ";
+    private static final String CC_EMAILS = "priti.kasar+1@magnetoitsolutions.com,jaimin.b@magnetoitsolutions.com,gajanan@magnetoitsolutions.com,ravi.patel@bytestechnolab.com";
     private static final String BCC_EMAILS = "pritik.magneto@gmail.com";
 
     // ================= FILE PATHS =================
@@ -99,10 +99,12 @@ public class ReportEmailTrigger implements ISuiteListener {
     private String buildEmailBody(ISuite suite, Multipart multipart) {
 
         StringBuilder body = new StringBuilder();
-        body.append("<html><body style='font-family: Calibri, sans-serif; color: #333;'>")
-            .append("<div style='background-color: #f4f4f4; padding: 20px;'>")
-            .append("<h2 style='color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 10px;'>🚀 Automation Execution Summary</h2>")
-            .append("<p>The test suite execution has completed. Please find the details below:</p>");
+       body.append("<html><body style='margin:0;font-family:Segoe UI;'>")
+
+.append("<div style='background:linear-gradient(135deg,#4facfe,#00f2fe);padding:20px;color:white;'>")
+.append("<h1>🚀 Automation Dashboard</h1>")
+.append("<p>Execution Summary Report</p>")
+.append("</div>");
 
         // ✅ NEW: MULTIPLE ORDER DETAILS SECTION
         body.append("<div style='background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd;'>")

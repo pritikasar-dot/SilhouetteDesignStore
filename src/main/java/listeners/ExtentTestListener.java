@@ -3,7 +3,6 @@ package listeners;
 import org.testng.*;
 import com.aventstack.extentreports.*;
 import com.mystore.utility.*;
-
 import org.openqa.selenium.WebDriver;
 import com.mystore.base.BaseClass;
 
@@ -14,34 +13,43 @@ public class ExtentTestListener extends BaseClass implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
+
         String methodName = result.getMethod().getMethodName();
         String description = result.getMethod().getDescription();
 
         ExtentTest extentTest = extent.createTest(methodName, description);
+
+        // 🔥 CATEGORY MAGIC (Dashboard filters)
+        extentTest.assignCategory(result.getTestClass().getName());
+        extentTest.assignAuthor("Priti");
+        extentTest.assignDevice("Chrome");
+
         test.set(extentTest);
 
-        test.get().info("🟡 Test Started: " + methodName);
+        test.get().info("🚀 Test Started");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.get().pass("✅ Test Passed");
-        // No screenshot on success
+        test.get().pass("✅ Test Passed Successfully");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
+
+        test.get().fail("❌ Test Failed");
         test.get().fail(result.getThrowable());
 
         String screenshotPath = captureScreenshot(result, true);
+
         if (screenshotPath != null) {
-            test.get().addScreenCaptureFromPath(screenshotPath, "Screenshot on Failure");
+            test.get().addScreenCaptureFromPath(screenshotPath, "📸 Failure Screenshot");
         }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        test.get().skip("⚠️ Test Skipped: " + result.getMethod().getMethodName());
+        test.get().skip("⚠️ Test Skipped");
     }
 
     @Override
@@ -54,7 +62,9 @@ public class ExtentTestListener extends BaseClass implements ITestListener {
             WebDriver driver = getDriver();
             if (driver == null) return null;
 
-            return ScreenshotUtil.captureScreenshot(driver, result.getMethod().getMethodName(), isFailed);
+            return ScreenshotUtil.captureScreenshot(driver,
+                    result.getMethod().getMethodName(),
+                    isFailed);
 
         } catch (Exception e) {
             System.err.println("❌ Screenshot capture failed: " + e.getMessage());

@@ -59,7 +59,7 @@ public class CreditBoostPurchaseTest extends BaseClass {
         creditPage.selectBillingAddress();
 
         // Step 3
-        creditPage.applyCoupon("Gajanan100");
+        creditPage.applyCoupon("Gajanan90");
 
         // Step 4
         creditPage.selectSavedCardAndEnterCVV("737");
